@@ -6,14 +6,15 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/03 17:42:24 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:00:30 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
+# include <stdio.h>
+# include <pthread.h>
 
 /*--------------STRUCTS--------------*/
 typedef struct s_data
@@ -23,7 +24,18 @@ typedef struct s_data
 	int	t_eat;
 	int t_sleep;
 	int n_eats;
+	//philo
+	//forks
 }	t_data;
+
+typedef struct s_philo
+{
+	int			id;
+	pthread_t	pthread;
+	int			lfork;
+	int			rfork;
+	//data
+}	t_philo;
 
 /*--------------HEADERS--------------*/
 t_data	fill_data(int argc, char *argv[]);
