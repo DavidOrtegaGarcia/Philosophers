@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/03 17:41:52 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:27:25 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ t_data fill_data(int argc, char *argv[])
 	if (argc == 6)
 		data.n_eats = atoi(argv[5]);
 	else
-		data.n_eats = -1;	
+		data.n_eats = -1;
 	return (data);
 }
