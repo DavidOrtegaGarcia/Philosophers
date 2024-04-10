@@ -6,17 +6,18 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:57:34 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/08 17:33:32 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:48:49 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
 
-static check_val_arg(t_data data)
+static int	check_val_arg(t_data data)
 {
-	if (data.n_philo <= 0 || data.t_death <= 0 || data.t_death <= 0 ||
-		data.t_sleep <= 0 || data.n_eats <= 0)
+	if (data.n_philo <= 0 || data.t_death <= 0 || data.t_death <= 0
+		|| data.t_sleep <= 0 || data.n_eats <= 0)
 		return (0);
+	return (1);
 }
 
 static int	check_arg(char *arg)
@@ -49,8 +50,8 @@ static int	check_args(int argc, char *argv[])
 
 int	main(int argc, char *argv[])
 {
-	t_data		data;
-	t_philo		*philos;
+	t_data	data;
+	t_philo	*philos;
 
 	if (argc < 5 || argc > 6)
 		return (printf("Wrong number of arguments\n"), 0);
@@ -59,10 +60,12 @@ int	main(int argc, char *argv[])
 	data = fill_data(argc, argv);
 	if (check_val_arg(data) == 0)
 		return (printf("The values must be greater than 0\n"), 0);
-	philos = (t_philo *) malloc((data.n_philo + 1) * sizeof(t_philo));
+	philos = (t_philo *)malloc((data.n_philo + 1) * sizeof(t_philo));
 	if (philos == NULL)
-		return (printf("Error allocating memory"));
-	//philos = fill_philos(philos, data);
+		return (printf("Error allocating memory"), 0);
+	philos = fill_philos(philos, &data);
+	if (philos == NULL)
+		return (printf("Error creating threads"), 0);
 	print_data(data);
 	printf("Todo bien\n");
 }

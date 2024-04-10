@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/08 17:27:25 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:10:15 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	print_data(t_data data)
 	printf("n_eat: %d\n", data.n_eats);
 }
 
-t_data fill_data(int argc, char *argv[])
+t_data	fill_data(int argc, char *argv[])
 {
-	t_data data;
+	t_data	data;
 
 	data.n_philo = atoi(argv[1]);
 	data.t_death = atoi(argv[2]);

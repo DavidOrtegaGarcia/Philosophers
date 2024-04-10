@@ -6,7 +6,7 @@
 #    By: daortega <daortega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 14:34:28 by daortega          #+#    #+#              #
-#    Updated: 2024/04/03 17:27:51 by daortega         ###   ########.fr        #
+#    Updated: 2024/04/10 13:34:14 by daortega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(DIR_O):
 
 $(DIR_O)%.o: %.c $(NAMELIB) Makefile
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -g -pthread -c $< -o $@
 
 $(NAME): $(OBJC)
 	$(CC) $(CFLAGS) $(OBJC) -o $(NAME)
