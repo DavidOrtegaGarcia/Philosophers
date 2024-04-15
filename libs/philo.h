@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/10 14:37:18 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/15 18:01:12 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ typedef struct s_philo
 t_data				fill_data(int argc, char *argv[]);
 int					atoi(char *str);
 void				print_data(t_data data);
+void	free_philos(t_philo *philos);
+void	free_forks(pthread_mutex_t *forks, t_data data);
 #endif
