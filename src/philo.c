@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/15 17:55:15 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:17:17 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,29 @@ void	free_philos(t_philo *philos)
 	}
 }
 
-static void	*action(t_data *data)
+static void	*routine(t_philo *philo)
 {
-	printf("Funciona\n");
+	while()
+	{
+
+	}
 }
-t_philo	*create_philos(t_philo *philos, t_data *data)
+t_philo	*create_philos(t_philo *philos)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->n_philo)
+	while (i < philos->data->n_philo)
 	{
 		if (philos[i].pthread = pthread_create(philos[i].pthread, NULL, 
-			&action, data) != 0)
+			&routine, &philos[i]) != 0)
 			return (NULL);
-		pthread_join(philos[i].pthread, NULL);
 		i++;
+	}
+	i = 0;
+	while (i < philos->data->n_philo)
+	{
+		pthread_join(&philos[i], NULL);
 	}
 	return (philos);
 }

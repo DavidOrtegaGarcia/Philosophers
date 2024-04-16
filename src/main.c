@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:57:34 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/15 17:58:46 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:59:10 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,12 @@ int	main(int argc, char *argv[])
 	forks = malloc((data.n_philo) * sizeof(pthread_mutex_t));
 	if (forks == NULL)
 		return (printf("Error allocating memory"), free_forks(forks, data), 0);
+	data.forks = forks;
 	philos = malloc((data.n_philo) * sizeof(t_philo));
 	if (philos == NULL)
 		return (printf("Error allocating memory"), free_philos(philos), free_forks(forks, data), 0);
 	philos = fill_philos(philos, &data);
+	philos = create_philos(philos, &data);
 	if (philos == NULL)
 		return (printf("Error creating threads"), 0);
 	print_data(data);
