@@ -6,11 +6,11 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:58:02 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/16 15:22:57 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:32:53 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../libs/philo.h"
 
 void	free_forks(pthread_mutex_t *forks, t_data data)
 {
