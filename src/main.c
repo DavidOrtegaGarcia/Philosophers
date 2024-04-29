@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:57:34 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/24 16:49:46 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:03:04 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	check_val_arg(t_data data)
 {
-	if (data.n_philo <= 0 || data.t_death <= 0 || data.t_death <= 0
-		|| data.t_sleep <= 0 || data.n_eats <= 0)
+	if (data.n_philo <= 0 || data.t_death <= 0 || data.t_eat <= 0
+		|| data.t_sleep <= 0 || data.n_eats == 0)
 		return (0);
 	return (1);
 }
@@ -63,16 +63,16 @@ int	main(int argc, char *argv[])
 		return (printf("The values must be greater than 0\n"), 0);
 	forks = malloc((data.n_philo) * sizeof(pthread_mutex_t));
 	if (forks == NULL)
-		return (printf("Error allocating memory"), free_forks(forks, data), 0);
+		return (printf("Error allocating memory\n"), free_forks(forks, data), 0);
 	data.forks = forks;
 	philos = malloc((data.n_philo) * sizeof(t_philo));
 	if (philos == NULL)
-		return (printf("Error allocating memory"), free_philos(philos), free_forks(forks, data), 0);
+		return (printf("Error allocating memory\n"), free_philos(philos), free_forks(forks, data), 0);
 	data.philos = philos;
 	philos = fill_philos(philos, &data);
 	philos = create_philos(philos);
 	if (philos == NULL)
-		return (printf("Error creating threads"), 0);
+		return (printf("Error creating threads\n"), 0);
 	print_data(data);
 	printf("Todo bien\n");
 }

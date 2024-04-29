@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/24 15:56:48 by daortega         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:34:15 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@ void	free_philos(t_philo *philos)
 	i = 0;
 	while (i < philos->data->n_philo)
 	{
-		free(philos[i]);
+		free(&philos[i]);
 		i++;
 	}
 }
 
-static void	*routine(t_philo *philo)
+static void	routine(t_philo *philo)
 {
-	while(philo->data->death)
+	while(1)
 	{
-		
+		//eat
+		//sleep 
+		//think
 	}
 }
 
@@ -37,17 +39,19 @@ t_philo	*create_philos(t_philo *philos)
 	int	i;
 
 	i = 0;
+	philos->data->t_start = get_time();
 	while (i < philos->data->n_philo)
 	{
-		if (philos[i].pthread = pthread_create(philos[i].pthread, NULL, 
+		if (pthread_create(&philos[i].pthread, NULL, 
 			&routine, &philos[i]) != 0)
 			return (NULL);
 		i++;
 	}
+	/////monitor
 	i = 0;
 	while (i < philos->data->n_philo)
 	{
-		pthread_join(&philos[i], NULL);
+		pthread_join(philos[i].pthread, NULL);
 		i++;
 	}
 	return (philos);
