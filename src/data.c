@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 16:48:22 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:02:10 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,28 @@ long long get_t_start(t_data *data)
 	return(result);	
 }
 
-t_data	fill_data(int argc, char *argv[])
+int	fill_data(int argc, char *argv[], t_data *data)
 {
-	t_data	data;
 
-	data.n_philo = atoi(argv[1]);
-	data.t_death = atoi(argv[2]);
-	data.t_eat = atoi(argv[3]);
-	data.t_sleep = atoi(argv[4]);
+	if (!ft_test_atoi(argv[1]) || !ft_test_atoi(argv[2])
+		|| !ft_test_atoi(argv[3]) || !ft_test_atoi(argv[4]))
+		return (printf("Wrong arguments\n"), 0);
+	data->n_philo = ft_atoi(argv[1]);
+	if (data->n_philo > 100)
+		return(printf("Too many philosophers\n"), 0);
+	data->t_death = ft_atoi(argv[2]);
+	data->t_eat = ft_atoi(argv[3]);
+	data->t_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		data.n_eats = atoi(argv[5]);
+	{
+		if (!ft_test_atoi(argv[5]))
+			return (printf("Wrong arguments\n"), 0);	
+		data->n_eats = ft_atoi(argv[5]);
+	}
 	else
-		data.n_eats = -1;
-	data.death = false;
-	return (data);
+		data->n_eats = -1;
+	data->death = false;
+	if (check_val_arg(*data) == 0)
+		return (printf("The values must be greater than 0\n"), 0);
+	return (1);
 }

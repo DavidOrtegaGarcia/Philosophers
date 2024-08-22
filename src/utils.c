@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 14:27:08 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:04:35 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,28 @@ long long get_time(void)
 
 	gettimeofday(&time, NULL);
 	return((long long) time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	check_val_arg(t_data data)
+{
+	if (data.n_philo <= 0 || data.t_death <= 0 || data.t_eat <= 0
+		|| data.t_sleep <= 0 || data.n_eats == 0)
+		return (0);
+	return (1);
+}
+
+static int	check_arg(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i] != '\0')
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	ft_atoi(char *str)
@@ -34,4 +56,25 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	return (result);
+}
+
+bool	ft_test_atoi(char *str)
+{
+	int		i;
+	long	result;
+
+	i = 0;
+	result = 0;
+	
+	if (check_arg(str) == 0)
+		return (false);
+	while (str[i] != '\0')
+	{
+		result *= 10;
+		result += str[i] - 48;
+		i++;
+		if (result > INT_MAX || result < INT_MIN)
+			return (false);
+	}
+	return (true);
 }

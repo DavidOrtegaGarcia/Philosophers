@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 16:48:18 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:35:44 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <limits.h>
 
 /*--------------STRUCTS--------------*/
 typedef struct s_data
@@ -47,8 +48,10 @@ typedef struct s_philo
 }					t_philo;
 
 /*--------------HEADERS--------------*/
-t_data				fill_data(int argc, char *argv[]);
+int		fill_data(int argc, char *argv[], t_data *data);
+bool	ft_test_atoi(char *str);
 int					ft_atoi(char *str);
+int		check_val_arg(t_data data);
 void				print_data(t_data data);
 void		free_philos(t_philo *philos);
 void		free_forks(pthread_mutex_t *forks, t_data data);

@@ -6,13 +6,13 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 16:34:15 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:04:56 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
 
-void	free_philos(t_philo *philos)
+/*void	free_philos(t_philo *philos)
 {
 	int	i;
 
@@ -70,4 +70,4 @@ t_philo	*fill_philos(t_philo *philos, t_data *data)
 		i++;
 	}
 	return (philos);
-}
+}*/
