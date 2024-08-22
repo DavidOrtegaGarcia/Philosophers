@@ -6,13 +6,13 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/22 16:04:56 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:22:22 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
 
-/*void	free_philos(t_philo *philos)
+void	free_philos(t_philo *philos)
 {
 	int	i;
 
@@ -45,6 +45,7 @@ t_philo	*create_philos(t_philo *philos)
 		if (pthread_create(&philos[i].pthread, NULL, 
 			&routine, &philos[i]) != 0)
 			return (NULL);
+		get_forks();
 		i++;
 	}
 	/////monitor
@@ -70,4 +71,4 @@ t_philo	*fill_philos(t_philo *philos, t_data *data)
 		i++;
 	}
 	return (philos);
-}*/
+}
