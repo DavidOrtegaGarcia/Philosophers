@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/22 15:35:44 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:14:36 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include <limits.h>
+
+/*============== MACROS ==============*/
+# define MSG_FRK "%lld %d has taken a fork\n"
+# define MSG_EAT "%lld %d is eating\n"
+# define MSG_ZZZ "%lld %d is sleeping\n"
+# define MSG_THK "%lld %d is thinking\n"
+# define MSG_DIE "%lld %d died\n"
 
 /*--------------STRUCTS--------------*/
 typedef struct s_data
@@ -57,10 +64,13 @@ void		free_philos(t_philo *philos);
 void		free_forks(pthread_mutex_t *forks, t_data data);
 t_philo		*fill_philos(t_philo *philos, t_data *data);
 t_philo		*create_philos(t_philo *philos);
+void 		print_forks(t_philo *philos);
 long long	get_time(void);
 int			get_t_death(t_data *data);
 int 		get_t_eat(t_data *data);
 int 		get_t_sleep(t_data *data);
 int 		get_n_eats(t_data *data);
 bool 		get_death(t_data *data);
+long long	get_t_start(t_data *data);
+
 #endif

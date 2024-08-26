@@ -6,18 +6,33 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/22 15:04:35 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:14:19 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
+
+void print_forks(t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < philos->data->n_philo)
+	{
+		printf("philo %d lfork = %p\n", philos[i].id, philos[i].lfork);
+		printf("philo %d rfork = %p\n", philos[i].id, philos[i].rfork);
+		printf("\n");
+		i++;
+	}
+
+}
 
 long long get_time(void)
 {
 	struct timeval time;
 
 	gettimeofday(&time, NULL);
-	return((long long) time.tv_sec * 1000 + time.tv_usec / 1000);
+	return(time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	check_val_arg(t_data data)

@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/22 16:02:10 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:13:51 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,8 @@ void	print_data(t_data data)
 	printf("n_eat: %d\n", data.n_eats);
 }
 
-long long get_t_start(t_data *data)
-{
-	long long result;
-
-	pthread_mutex_lock(&data->getter);
-	result = data->t_start;
-	pthread_mutex_unlock(&data->getter);
-	return(result);	
-}
-
 int	fill_data(int argc, char *argv[], t_data *data)
 {
-
 	if (!ft_test_atoi(argv[1]) || !ft_test_atoi(argv[2])
 		|| !ft_test_atoi(argv[3]) || !ft_test_atoi(argv[4]))
 		return (printf("Wrong arguments\n"), 0);

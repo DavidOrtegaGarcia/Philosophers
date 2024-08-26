@@ -6,11 +6,11 @@
 #    By: daortega <daortega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 14:34:28 by daortega          #+#    #+#              #
-#    Updated: 2024/08/22 16:04:54 by daortega         ###   ########.fr        #
+#    Updated: 2024/08/26 15:18:53 by daortega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 NAMELIB = libs/philo.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=threads

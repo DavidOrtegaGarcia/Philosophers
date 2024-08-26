@@ -6,11 +6,21 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:13:37 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 16:49:57 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:49:39 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
+
+long long get_t_start(t_data *data)
+{
+	long long result;
+
+	pthread_mutex_lock(&data->lock);
+	result = data->t_start;
+	pthread_mutex_unlock(&data->lock);
+	return(result);
+}
 
 int get_t_death(t_data *data)
 {
@@ -56,9 +66,9 @@ bool get_death(t_data *data)
 {
 	bool result;
 
-	pthread_mutex_lock(&data->getter);
+	pthread_mutex_lock(&data->lock);
 	result = data->death;
-	pthread_mutex_unlock(&data->getter);
+	pthread_mutex_unlock(&data->lock);
 	return(result);
 }
 
