@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/26 18:22:32 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:09:33 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	free_philos(t_philo *philos)
 	}
 }
 
+void ft_sleep(t_data *data)
+{
+	
+	while(!get_death(data) && get_t_eat(data) > get_time() - get_t_start(data))
+		usleep(1000);
+}
+
 void p_think(t_philo *philo)
 {
 	printf(MSG_THK, get_time() - get_t_start(philo->data), philo->id);
@@ -35,17 +42,26 @@ void p_sleep(t_philo *philo)
 	usleep(get_t_sleep(philo->data) * 1000);
 }
 
-void p_eat(t_philo *philo)
+int p_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->lfork);
+	if (get_death(philo->data))
+		return(pthread_mutex_unlock(philo->rfork), -1);
 	printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
 	pthread_mutex_lock(philo->rfork);
+	if (get_death(philo->data))
+		return (pthread_mutex_unlock(philo->rfork),
+			pthread_mutex_unlock(philo->lfork), -1);
 	printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
+	if (get_death(philo->data))
+		return (pthread_mutex_unlock(philo->rfork),
+			pthread_mutex_unlock(philo->lfork), -1);
 	printf(MSG_EAT, get_time() - get_t_start(philo->data), philo->id);
-	usleep(get_t_eat(philo->data) * 1000);
+	ft_sleep(philo->data);
 	philo->lmeal = get_time();
 	pthread_mutex_unlock(philo->rfork);
 	pthread_mutex_unlock(philo->lfork);
+	return (1);
 }
 
 void monitor(t_philo *philo, int n_philo)
@@ -64,7 +80,6 @@ void monitor(t_philo *philo, int n_philo)
 				philo->data->death = true;
 				pthread_mutex_unlock(&philo->data->lock);
 				printf(MSG_DIE, get_time() - get_t_start(philo->data), philo->id);
-				exit(122345676);
 				break;
 			}
 			i++;
@@ -103,13 +118,17 @@ t_philo	*create_philos(t_philo *philos)
 		if(i % 2 == 0)
 			usleep(10);
 	}
-	/////monitor
 	monitor(philos, philos->data->n_philo);
 	i = 0;
-	while (i < philos->data->n_philo)
+	if (philos->data->n_philo == 1)
+		pthread_detach(philos[0].pthread);
+	else
 	{
-		pthread_join(philos[i].pthread, NULL);
-		i++;
+		while (i < philos->data->n_philo)
+		{
+			pthread_join(philos[i].pthread, NULL);
+			i++;
+		}
 	}
 	return (philos);
 }
