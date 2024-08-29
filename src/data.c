@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/26 15:13:51 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:37:20 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	fill_data(int argc, char *argv[], t_data *data)
 		return (printf("Wrong arguments\n"), 0);
 	data->n_philo = ft_atoi(argv[1]);
 	if (data->n_philo > 100)
-		return(printf("Too many philosophers\n"), 0);
+		return (printf("Too many philosophers\n"), 0);
 	data->t_death = ft_atoi(argv[2]);
 	data->t_eat = ft_atoi(argv[3]);
 	data->t_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
 		if (!ft_test_atoi(argv[5]))
-			return (printf("Wrong arguments\n"), 0);	
+			return (printf("Wrong arguments\n"), 0);
 		data->n_eats = ft_atoi(argv[5]);
 	}
 	else

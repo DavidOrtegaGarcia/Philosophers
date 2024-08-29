@@ -6,15 +6,15 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/26 17:14:19 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:00:03 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
 
-void print_forks(t_philo *philos)
+void	print_forks(t_philo *philos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philos->data->n_philo)
@@ -24,15 +24,14 @@ void print_forks(t_philo *philos)
 		printf("\n");
 		i++;
 	}
-
 }
 
-long long get_time(void)
+long long	get_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return(time.tv_sec * 1000 + time.tv_usec / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	check_val_arg(t_data data)
@@ -80,7 +79,6 @@ bool	ft_test_atoi(char *str)
 
 	i = 0;
 	result = 0;
-	
 	if (check_arg(str) == 0)
 		return (false);
 	while (str[i] != '\0')

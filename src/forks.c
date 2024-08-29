@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:58:02 by daortega          #+#    #+#             */
-/*   Updated: 2024/04/29 14:32:53 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:38:04 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	free_forks(pthread_mutex_t *forks, t_data data)
 	}
 }
 
-pthread_mutex_t *fill_forks(pthread_mutex_t *forks,  t_data data)
+pthread_mutex_t	*fill_forks(pthread_mutex_t *forks, t_data data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data.n_philo)

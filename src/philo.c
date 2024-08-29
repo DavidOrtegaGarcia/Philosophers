@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/28 15:09:33 by daortega         ###   ########.fr       */
+/*   Updated: 2024/08/29 17:04:48 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,47 @@ void	free_philos(t_philo *philos)
 	}
 }
 
-void ft_sleep(t_data *data)
+void	ft_sleep(t_data *data)
 {
-	
-	while(!get_death(data) && get_t_eat(data) > get_time() - get_t_start(data))
+	while (!get_death(data) && get_t_eat(data) > get_time() - get_t_start(data))
 		usleep(1000);
 }
 
-void p_think(t_philo *philo)
+void	p_think(t_philo *philo)
 {
 	printf(MSG_THK, get_time() - get_t_start(philo->data), philo->id);
 }
 
-void p_sleep(t_philo *philo)
+void	p_sleep(t_philo *philo)
 {
 	printf(MSG_ZZZ, get_time() - get_t_start(philo->data), philo->id);
 	usleep(get_t_sleep(philo->data) * 1000);
 }
 
-int p_eat(t_philo *philo)
+int	p_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->lfork);
-	if (get_death(philo->data))
-		return(pthread_mutex_unlock(philo->rfork), -1);
-	printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
-	pthread_mutex_lock(philo->rfork);
-	if (get_death(philo->data))
-		return (pthread_mutex_unlock(philo->rfork),
-			pthread_mutex_unlock(philo->lfork), -1);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->lfork);
+		if (get_death(philo->data))
+			return (pthread_mutex_unlock(philo->lfork), -1);
+		printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
+		pthread_mutex_lock(philo->rfork);
+		if (get_death(philo->data))
+			return (pthread_mutex_unlock(philo->rfork),
+				pthread_mutex_unlock(philo->lfork), -1);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->rfork);
+		if (get_death(philo->data))
+			return (pthread_mutex_unlock(philo->rfork), -1);
+		printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
+		pthread_mutex_lock(philo->lfork);
+		if (get_death(philo->data))
+			return (pthread_mutex_unlock(philo->lfork),
+				pthread_mutex_unlock(philo->rfork), -1);
+	}
 	printf(MSG_FRK, get_time() - get_t_start(philo->data), philo->id);
 	if (get_death(philo->data))
 		return (pthread_mutex_unlock(philo->rfork),
@@ -64,14 +77,14 @@ int p_eat(t_philo *philo)
 	return (1);
 }
 
-void monitor(t_philo *philo, int n_philo)
+void	monitor(t_philo *philo, int n_philo)
 {
-	int i;
+	int	i;
 
-	while(!get_death(philo->data))
+	while (!get_death(philo->data))
 	{
 		i = 0;
-		while(i < n_philo)
+		while (i < n_philo)
 		{
 			//printf("%d --- %lld\n", get_t_death(philo->data), (get_time() - philo[i].lmeal));
 			if (get_t_death(philo->data) < (get_time() - philo[i].lmeal))
@@ -79,8 +92,9 @@ void monitor(t_philo *philo, int n_philo)
 				pthread_mutex_lock(&philo->data->lock);
 				philo->data->death = true;
 				pthread_mutex_unlock(&philo->data->lock);
-				printf(MSG_DIE, get_time() - get_t_start(philo->data), philo->id);
-				break;
+				printf(MSG_DIE, get_time() - get_t_start(philo->data),
+					philo->id);
+				break ;
 			}
 			i++;
 		}
@@ -89,19 +103,22 @@ void monitor(t_philo *philo, int n_philo)
 
 void	*routine(void *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = data;
-	while(!get_death(philo->data))
+	while (!get_death(philo->data))
 	{
 		if (!get_death(philo->data))
+		{
 			p_eat(philo);
+			philo->nmeals++;
+		}
 		if (!get_death(philo->data))
 			p_sleep(philo);
 		if (!get_death(philo->data))
 			p_think(philo);
 	}
-	return(philo);
+	return (philo);
 }
 
 t_philo	*create_philos(t_philo *philos)
@@ -115,8 +132,6 @@ t_philo	*create_philos(t_philo *philos)
 		if (pthread_create(&philos[i].pthread, NULL, &routine, &philos[i]) != 0)
 			return (NULL);
 		i++;
-		if(i % 2 == 0)
-			usleep(10);
 	}
 	monitor(philos, philos->data->n_philo);
 	i = 0;
@@ -133,7 +148,7 @@ t_philo	*create_philos(t_philo *philos)
 	return (philos);
 }
 
-void get_forks(t_philo *phil, int i)
+void	get_forks(t_philo *phil, int i)
 {
 	if (i == 0)
 	{
@@ -145,7 +160,6 @@ void get_forks(t_philo *phil, int i)
 		phil->lfork = &phil->data->forks[i - 1];
 		phil->rfork = &phil->data->forks[i];
 	}
-
 }
 
 t_philo	*fill_philos(t_philo *philos, t_data *data)
@@ -158,6 +172,7 @@ t_philo	*fill_philos(t_philo *philos, t_data *data)
 		philos[i].id = i + 1;
 		philos[i].data = data;
 		philos[i].lmeal = get_time();
+		philos[i].nmeals = 0;
 		get_forks(&philos[i], i);
 		i++;
 	}
