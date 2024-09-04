@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/29 17:04:48 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:21:11 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,37 @@ void	free_philos(t_philo *philos)
 	{
 		free(&philos[i]);
 		i++;
+	}
+}
+
+
+void	monitor(t_philo *philos, t_data *data)
+{
+	int	i;
+
+	while (!get_death(data))
+	{
+		i = 0;
+		while (++i < data->n_philo)
+		{
+			//printf("%d --- %lld\n", get_t_death(philo->data), (get_time() - philo[i].lmeal));
+			if (get_t_death(data) < (get_time() - philos[i].lmeal))
+			{
+				pthread_mutex_lock(&data->lock);
+				data->death = true;
+				pthread_mutex_unlock(&data->lock);
+				printf(MSG_DIE, get_time() - get_t_start(data),
+					philos->id);
+				break ;
+			}
+			if (data->n_eats != -1 && philos->nmeals >= data->n_eats)
+			{
+				pthread_mutex_lock(&data->lock);
+				data->death = true;
+				pthread_mutex_unlock(&data->lock);
+				break ;
+			}
+		}
 	}
 }
 
@@ -77,29 +108,6 @@ int	p_eat(t_philo *philo)
 	return (1);
 }
 
-void	monitor(t_philo *philo, int n_philo)
-{
-	int	i;
-
-	while (!get_death(philo->data))
-	{
-		i = 0;
-		while (i < n_philo)
-		{
-			//printf("%d --- %lld\n", get_t_death(philo->data), (get_time() - philo[i].lmeal));
-			if (get_t_death(philo->data) < (get_time() - philo[i].lmeal))
-			{
-				pthread_mutex_lock(&philo->data->lock);
-				philo->data->death = true;
-				pthread_mutex_unlock(&philo->data->lock);
-				printf(MSG_DIE, get_time() - get_t_start(philo->data),
-					philo->id);
-				break ;
-			}
-			i++;
-		}
-	}
-}
 
 void	*routine(void *data)
 {
@@ -133,7 +141,7 @@ t_philo	*create_philos(t_philo *philos)
 			return (NULL);
 		i++;
 	}
-	monitor(philos, philos->data->n_philo);
+	monitor(philos, philos->data);
 	i = 0;
 	if (philos->data->n_philo == 1)
 		pthread_detach(philos[0].pthread);
