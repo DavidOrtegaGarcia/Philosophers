@@ -6,11 +6,21 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:13:37 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/04 16:00:55 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:19:33 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
+
+int get_n_meals(t_philo *philo)
+{
+	int result;
+	pthread_mutex_lock(&philo->data->lock);
+	result = philo->nmeals;
+	pthread_mutex_unlock(&philo->data->lock);\
+
+	return(result);
+}
 
 long long	get_t_start(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/04 16:21:11 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:35:22 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	monitor(t_philo *philos, t_data *data)
 					philos->id);
 				break ;
 			}
-			if (data->n_eats != -1 && philos->nmeals >= data->n_eats)
+			if (data->n_eats != -1 && get_n_meals(&philos[i]) >= data->n_eats)
 			{
 				pthread_mutex_lock(&data->lock);
 				data->death = true;
@@ -119,7 +119,9 @@ void	*routine(void *data)
 		if (!get_death(philo->data))
 		{
 			p_eat(philo);
+			pthread_mutex_lock(&philo->data->lock);
 			philo->nmeals++;
+			pthread_mutex_unlock(&philo->data->lock);
 		}
 		if (!get_death(philo->data))
 			p_sleep(philo);
