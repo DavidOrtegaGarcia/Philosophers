@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:49:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/08/29 16:37:20 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:43:02 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ int	fill_data(int argc, char *argv[], t_data *data)
 	else
 		data->n_eats = -1;
 	data->death = false;
+	if (pthread_mutex_init(&data->getter, NULL) != 0)
+		return (0);
+	if (pthread_mutex_init(&data->lock, NULL) != 0)
+		return (0);
 	if (check_val_arg(*data) == 0)
 		return (printf("The values must be greater than 0\n"), 0);
 	return (1);

@@ -6,12 +6,12 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/09 15:12:43 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:41:52 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef philo_H
+# define philo_H
 
 # include <pthread.h>
 # include <stdlib.h>
