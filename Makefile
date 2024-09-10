@@ -6,14 +6,14 @@
 #    By: daortega <daortega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 14:34:28 by daortega          #+#    #+#              #
-#    Updated: 2024/09/09 18:42:06 by daortega         ###   ########.fr        #
+#    Updated: 2024/09/10 16:31:34 by daortega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 NAMELIB = libs/philo.h
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread
 
 #--------------<SRC>-------------
 SRC = src/

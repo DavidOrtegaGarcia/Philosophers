@@ -6,24 +6,11 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/09 18:41:52 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:28:32 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
-
-void	free_philos(t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	while (i < philos->data->n_philo)
-	{
-		free(&philos[i]);
-		i++;
-	}
-}
-
 
 void	monitor(t_philo *philos, t_data *data)
 {
@@ -34,14 +21,12 @@ void	monitor(t_philo *philos, t_data *data)
 		i = 0;
 		while (++i < data->n_philo)
 		{
-			//printf("%d --- %lld\n", get_t_death(philo->data), (get_time() - philo[i].lmeal));
-			if (get_t_death(data) < (get_time() - philos[i].lmeal))
+			if (get_t_death(data) < (get_time() - get_l_meal(&philos[i])))
 			{
 				pthread_mutex_lock(&data->lock);
 				data->death = true;
 				pthread_mutex_unlock(&data->lock);
-				printf(MSG_DIE, get_time() - get_t_start(data),
-					philos->id);
+				printf(MSG_DIE, get_time() - get_t_start(data), philos->id);
 				break ;
 			}
 			if (data->n_eats != -1 && get_n_meals(&philos[i]) >= data->n_eats)
@@ -102,12 +87,13 @@ int	p_eat(t_philo *philo)
 			pthread_mutex_unlock(philo->lfork), -1);
 	printf(MSG_EAT, get_time() - get_t_start(philo->data), philo->id);
 	ft_sleep(philo->data);
+	pthread_mutex_lock(&philo->m_mutex);
 	philo->lmeal = get_time();
+	pthread_mutex_unlock(&philo->m_mutex);
 	pthread_mutex_unlock(philo->rfork);
 	pthread_mutex_unlock(philo->lfork);
 	return (1);
 }
-
 
 void	*routine(void *data)
 {
@@ -119,9 +105,9 @@ void	*routine(void *data)
 		if (!get_death(philo->data))
 		{
 			p_eat(philo);
-			pthread_mutex_lock(&philo->data->lock);
+			pthread_mutex_lock(&philo->m_mutex);
 			philo->nmeals++;
-			pthread_mutex_unlock(&philo->data->lock);
+			pthread_mutex_unlock(&philo->m_mutex);
 		}
 		if (!get_death(philo->data))
 			p_sleep(philo);
@@ -184,6 +170,8 @@ t_philo	*fill_philos(t_philo *philos, t_data *data)
 		philos[i].lmeal = get_time();
 		philos[i].nmeals = 0;
 		get_forks(&philos[i], i);
+		if (pthread_mutex_init(&philos[i].m_mutex, NULL) != 0)
+			return (NULL);
 		i++;
 	}
 	return (philos);
