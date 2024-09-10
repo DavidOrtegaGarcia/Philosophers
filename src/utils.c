@@ -6,13 +6,13 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/09 18:41:52 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:32:15 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
 
-void	print_forks(t_philo *philos)
+/*void	print_forks(t_philo *philos)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ void	print_forks(t_philo *philos)
 		printf("\n");
 		i++;
 	}
-}
+}*/
 
 long long	get_time(void)
 {

@@ -6,7 +6,7 @@
 #    By: daortega <daortega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 14:34:28 by daortega          #+#    #+#              #
-#    Updated: 2024/09/10 16:31:34 by daortega         ###   ########.fr        #
+#    Updated: 2024/09/10 17:03:52 by daortega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread
 
 #--------------<SRC>-------------
 SRC = src/
-CFILES = main.c data.c utils.c forks.c philo.c getters.c
+CFILES = main.c data.c utils.c forks.c philo.c getters.c getters2.c routine.c
 SRCC = $(addprefix $(SRC), $(CFILES))
 
 DIR_O = tmp/

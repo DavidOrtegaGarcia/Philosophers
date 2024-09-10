@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/10 16:26:57 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:45:09 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ bool			get_death(t_data *data);
 long long		get_t_start(t_data *data);
 int				get_n_meals(t_philo *philo);
 long long		get_l_meal(t_philo *philo);
-
+int				p_eat(t_philo *philo);
+void			p_sleep(t_philo *philo);
+void			p_think(t_philo *philo);
+void			ft_sleep(t_data *data);
 #endif
