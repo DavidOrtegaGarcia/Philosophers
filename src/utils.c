@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 16:30:39 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:09:40 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,37 @@
 	}
 }*/
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+	int	result;
+
+	result = 0;
+	i = 0;
+	while ((s1[i] != '\0' && s2[i] != '\0') && result == 0)
+	{
+		result = (unsigned char)s1[i] - (unsigned char)s2[i];
+		i++;
+	}
+	if ((s1[i] != '\0' || s2[i] != '\0') && result == 0)
+		result = (unsigned char)s1[i] - (unsigned char)s2[i];
+	if (result > 0)
+		result = 1;
+	else if (result < 0)
+		result = -1;
+	return (result);
+}
+
 void	writer(char *msg, t_philo *philo)
 {
 	long long time;
 	
-	pthread_mutex_lock(&philo->data->write);
-	time = get_time() - get_t_start(philo->data);
-	printf(msg, time, philo->id);
-	pthread_mutex_unlock(&philo->data->write);
+	if (!get_death(philo->data))
+	{
+		
+		time = get_time() - get_t_start(philo->data);
+		printf(msg, time, philo->id);
+	}
 }
 
 long long	get_time(void)

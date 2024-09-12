@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:28:52 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 16:48:39 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:10 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,33 @@
 void	monitor(t_philo *philos, t_data *data)
 {
 	int	i;
+	long long time;
+	int flag;
 
 	while (!get_death(data))
 	{
-		i = 0;
+		i = -1;
+		flag = 1;
 		while (++i < data->n_philo)
 		{
 			if (get_t_death(data) < (get_time() - get_l_meal(&philos[i])))
 			{
 				pthread_mutex_lock(&data->lock);
 				data->death = true;
-				writer(MSG_DIE, &philos[i]);
+				time = get_time() - get_t_start(data);
+				printf(MSG_DIE, time, philos[i].id);
 				pthread_mutex_unlock(&data->lock);
 				break ;
 			}
-			if (data->n_eats != -1 && get_n_meals(&philos[i]) >= data->n_eats)
-			{
-				pthread_mutex_lock(&data->lock);
-				data->death = true;
-				pthread_mutex_unlock(&data->lock);
-				break ;
-			}
+			if (data->n_eats != -1 && get_n_meals(&philos[i]) < data->n_eats)
+				flag = 0;
+		}
+		if (data->n_eats != -1 && flag == 1)
+		{
+			pthread_mutex_lock(&data->lock);
+			printf("hOLADFGDGSASDFFD\n");
+			data->death = true;
+			pthread_mutex_unlock(&data->lock);
 		}
 	}
 }
@@ -52,10 +58,13 @@ void	*routine(void *data)
 	{
 		if (!get_death(philo->data))
 		{
-			p_eat(philo);
-			pthread_mutex_lock(&philo->m_mutex);
-			philo->nmeals++;
-			pthread_mutex_unlock(&philo->m_mutex);
+			if (p_eat(philo) != -1)
+			{
+				pthread_mutex_lock(&philo->m_mutex);
+				philo->nmeals++;
+				printf("%d n_meals = %d\n", philo->id, philo->nmeals);
+				pthread_mutex_unlock(&philo->m_mutex);
+			}
 		}
 		if (!get_death(philo->data))
 			p_sleep(philo);

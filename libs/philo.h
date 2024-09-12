@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 16:43:59 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:38:34 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_data
 	pthread_mutex_t	getter;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	ts_mutex;
-	pthread_mutex_t	write;
 	
 }					t_data;
 

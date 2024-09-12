@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:43:31 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 16:04:03 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:33:21 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	take_forks(t_philo *philo)
 			return (pthread_mutex_unlock(philo->lfork),
 				pthread_mutex_unlock(philo->rfork), -1);
 	}
+	writer(MSG_FRK, philo);
 	return (1);
 }
 
@@ -64,7 +65,6 @@ int	p_eat(t_philo *philo)
 {
 	if (take_forks(philo) == -1)
 		return (-1);
-	writer(MSG_FRK, philo);
 	if (get_death(philo->data))
 		return (pthread_mutex_unlock(philo->rfork),
 			pthread_mutex_unlock(philo->lfork), -1);
