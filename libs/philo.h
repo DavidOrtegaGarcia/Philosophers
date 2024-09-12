@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/10 16:45:09 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:43:59 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ typedef struct s_data
 	long long		t_start;
 	pthread_mutex_t	getter;
 	pthread_mutex_t	lock;
+	pthread_mutex_t	ts_mutex;
+	pthread_mutex_t	write;
+	
 }					t_data;
 
 typedef struct s_philo
@@ -79,5 +82,6 @@ long long		get_l_meal(t_philo *philo);
 int				p_eat(t_philo *philo);
 void			p_sleep(t_philo *philo);
 void			p_think(t_philo *philo);
-void			ft_sleep(t_data *data);
+void			ft_sleep(t_data *data, int time);
+void			writer(char *msg, t_philo *philo);
 #endif

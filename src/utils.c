@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:00:50 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/10 16:32:15 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:30:39 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@
 		i++;
 	}
 }*/
+
+void	writer(char *msg, t_philo *philo)
+{
+	long long time;
+	
+	pthread_mutex_lock(&philo->data->write);
+	time = get_time() - get_t_start(philo->data);
+	printf(msg, time, philo->id);
+	pthread_mutex_unlock(&philo->data->write);
+}
 
 long long	get_time(void)
 {

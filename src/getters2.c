@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:32:46 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/10 16:50:08 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:44:26 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ long long	get_t_start(t_data *data)
 {
 	long long	result;
 
-	pthread_mutex_lock(&data->lock);
+	pthread_mutex_lock(&data->ts_mutex);
 	result = data->t_start;
-	pthread_mutex_unlock(&data->lock);
+	pthread_mutex_unlock(&data->ts_mutex);
 	return (result);
 }
