@@ -6,18 +6,20 @@
 #    By: daortega <daortega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 14:34:28 by daortega          #+#    #+#              #
-#    Updated: 2024/09/12 14:35:10 by daortega         ###   ########.fr        #
+#    Updated: 2024/09/16 18:09:39 by daortega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 NAMELIB = libs/philo.h
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread
 
 #--------------<SRC>-------------
 SRC = src/
-CFILES = main.c data.c utils.c forks.c philo.c getters.c getters2.c routine.c
+CFILES = main.c data.c utils.c forks.c philo.c getters.c getters2.c routine.c \
+		 utils2.c
+
 SRCC = $(addprefix $(SRC), $(CFILES))
 
 DIR_O = tmp/

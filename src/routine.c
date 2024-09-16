@@ -6,21 +6,11 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:43:31 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 19:33:21 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:52:22 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/philo.h"
-
-void	ft_sleep(t_data *data, int time)
-{
-
-	long long time_sleep;
-
-	time_sleep = get_time() + time;
-	while (!get_death(data) && get_time() < time_sleep)
-		usleep(1000);
-}
 
 void	p_think(t_philo *philo)
 {
@@ -77,3 +67,13 @@ int	p_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->lfork);
 	return (1);
 }
+
+t_philo	*one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->rfork);
+	writer(MSG_FRK, philo);
+	ft_sleep(philo->data, get_t_death(philo->data));
+	pthread_mutex_unlock(philo->rfork);
+	return (philo);
+}
+

@@ -6,7 +6,7 @@
 /*   By: daortega <daortega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:12:56 by daortega          #+#    #+#             */
-/*   Updated: 2024/09/12 17:38:34 by daortega         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:53:09 by daortega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_data
 	pthread_mutex_t	getter;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	ts_mutex;
-	
 }					t_data;
 
 typedef struct s_philo
@@ -66,6 +65,7 @@ int				ft_atoi(char *str);
 int				check_val_arg(t_data data);
 void			print_data(t_data data);
 void			free_forks(pthread_mutex_t *forks, t_data data);
+void			get_forks(t_philo *phil, int i);;
 t_philo			*fill_philos(t_philo *philos, t_data *data);
 t_philo			*create_philos(t_philo *philos);
 void			print_forks(t_philo *philos);
@@ -78,6 +78,7 @@ bool			get_death(t_data *data);
 long long		get_t_start(t_data *data);
 int				get_n_meals(t_philo *philo);
 long long		get_l_meal(t_philo *philo);
+t_philo			*one_philo(t_philo *philo);
 int				p_eat(t_philo *philo);
 void			p_sleep(t_philo *philo);
 void			p_think(t_philo *philo);
